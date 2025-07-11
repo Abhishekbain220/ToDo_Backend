@@ -27,6 +27,10 @@ app.use(cors({
     credentials:true
 }))
 
+app.get("/", (req, res) => {
+  res.send("Backend is running!");
+});
+
 
 
 // Routes
@@ -35,16 +39,14 @@ app.use("/task",taskRouter)
 
 
 
-app.use((req,res,next)=>{
-    res.status(404).json({
-        success:false,
-        message:"Route not Found"
-    })
-})
+app.use((req, res, next) => {
+   res.status(404).json({
+        success: false,
+        message: "Route not found"
+    });
+});
 
-app.use("/",(req,res)=>{
-    res.send("Backend is running")
-})
+
 
 app.use(errorHandler)
 
