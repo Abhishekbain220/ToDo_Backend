@@ -42,7 +42,7 @@ app.use((req,res,next)=>{
     })
 })
 
-app.use((req,res)=>{
+app.use("/",(req,res)=>{
     res.send("Backend is running")
 })
 
