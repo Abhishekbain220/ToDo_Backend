@@ -27,9 +27,7 @@ app.use(cors({
     credentials:true
 }))
 
-app.use((req,res)=>{
-    res.send("Backend is running")
-})
+
 
 // Routes
 app.use("/user",userRouter)
@@ -42,6 +40,10 @@ app.use((req,res,next)=>{
         success:false,
         message:"Route not Found"
     })
+})
+
+app.use((req,res)=>{
+    res.send("Backend is running")
 })
 
 app.use(errorHandler)
