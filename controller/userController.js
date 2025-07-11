@@ -23,10 +23,12 @@ module.exports.signup = async (req, res, next) => {
         await user.save()
 
         let token = user.generateAuthToken()
-        res.cookie("token", token, {
+         res.cookie("token", token, {
             httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 5
-        })
+            secure: true,
+            sameSite: "None", // Required for cross-site cookies
+            maxAge: 1000 * 60 * 60 * 5 // 5 hours
+        });
         res.status(200).json({
             message: "User created successfully",
             token
@@ -45,11 +47,12 @@ module.exports.login = async (req, res, next) => {
         if (!existingUser) return next(new CustomError("User not found", 400))
         let user = await User.authenticate(email, password)
         let token = user.generateAuthToken()
-        res.cookie("token", token, {
+         res.cookie("token", token, {
             httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 5,
-            secure:true
-        })
+            secure: true,
+            sameSite: "None", // Required for cross-site cookies
+            maxAge: 1000 * 60 * 60 * 5 // 5 hours
+        });
         res.status(200).json({
             message: "Login Successful",
             token
